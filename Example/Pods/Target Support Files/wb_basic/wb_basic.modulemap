@@ -1,0 +1,6 @@
+framework module wb_basic {
+  umbrella header "wb_basic-umbrella.h"
+
+  export *
+  module * { export * }
+}
