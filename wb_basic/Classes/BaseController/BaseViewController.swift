@@ -199,7 +199,7 @@ open class BaseViewController: UIViewController {
         titleLabel.text = self.title
         titleLabel.textColor = self.titleColor ?? .black
         titleLabel.textAlignment = .center
-        titleLabel.font = MediumSize(18)
+        titleLabel.font = .mediumFont(18)
         titleLabel.size = CGSize.init(width: kScreenWidth - kNavHeight * 4, height: kNavHeight)
         return titleLabel
     }()

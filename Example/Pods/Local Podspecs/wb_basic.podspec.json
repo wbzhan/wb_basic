@@ -1,19 +1,19 @@
 {
   "name": "wb_basic",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "summary": "basic classes",
   "description": "部分基类、网络控件、自定义部分View",
-  "homepage": "https://github.com/zhanwenbaoit@126.com/wb_basic",
+  "homepage": "https://github.com/wbzhan/wb_basic.git",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "zhanwenbaoit@126.com": "wenbao.zhan@vantopgroup.com"
+    "wbzhan": "wbzhan@yeah.net.com"
   },
   "source": {
-    "git": "https://github.com/zhanwenbaoit@126.com/wb_basic.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/wbzhan/wb_basic.git",
+    "tag": "0.1.2"
   },
   "swift_versions": "5.0",
   "platforms": {

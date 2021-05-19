@@ -38,17 +38,7 @@ public func kSizeScale(_ size: CGSize) -> CGSize {
     let height = width / size.width * size.height
     return CGSize.init(width: width, height: height)
 }
-///中号粗体字体
-public func MediumSize(_ size: CGFloat) -> UIFont {
-    return UIFont.mediumFont(size)
-}
-///重号粗体字
-public func SemiboldSize(_ size: CGFloat) -> UIFont {
-    return UIFont.semiboldFont(size)
-}
-public func FontSize(_ size: CGFloat) -> UIFont {
-    return UIFont.font(size)
-}
+
 ///判断字符串为空
 public func IsEmptyStr(_ string: Any?) -> Bool{
     
@@ -70,10 +60,10 @@ public func PercentageNumber(_ number: Float) -> String {
 
     let formatter = NumberFormatter()
     formatter.numberStyle = .percent
-    formatter.minimumIntegerDigits = 1
-    formatter.maximumIntegerDigits = 1
-    formatter.maximumFractionDigits = 3
-   return (number >= 0 ? "+" : "") + formatter.string(for: number)!
+    formatter.minimumIntegerDigits = 1//小数点前最小位数
+    formatter.maximumFractionDigits = 2//小数点后最大位数
+   return formatter.string(for: number)!
+
   }
 ///判断两个json数据是否相同
 public func IsSameData(oldData: [String: Any], newData: [String: Any] ) -> Bool {

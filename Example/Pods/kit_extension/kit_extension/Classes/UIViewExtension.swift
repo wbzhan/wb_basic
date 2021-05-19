@@ -129,15 +129,13 @@ import UIKit
     }
     
     //MARK:    --   func
-    ///设置视图默认阴影
-    func setShadow() {
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.3
-        self.layer.shadowOffset = CGSize.init(width: 1.0, height: 1.0)
-    }
-    
-    ///添加自定义阴影
-    func setShadow(color:UIColor,shadowOpacity:Float,shadowRadius:CGFloat,shadowOffset:CGSize){
+    /// 添加自定义阴影
+    /// - Parameters:
+    ///   - color: 阴影颜色
+    ///   - shadowOpacity: 阴影透明度
+    ///   - shadowRadius: 阴影半径
+    ///   - shadowOffset: 阴影偏移,x向右偏移0，y向下偏移，默认(0, -3),和shadowRadius配合使用
+    func setShadow(color:UIColor = UIColor.lightGray,shadowOpacity:Float = 0.3,shadowRadius:CGFloat = 3,shadowOffset:CGSize = .init(width: 0, height: 3)){
         self.layoutIfNeeded()
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOffset = shadowOffset

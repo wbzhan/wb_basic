@@ -7,20 +7,7 @@
 //
 
 import Foundation
-
 public extension Array {
-   
-   func indexObj(_  obj: Element) -> Int {
-       var index = 0
-       for item in self {
-           if (item as AnyObject).isEqual(obj) {
-               break
-           }
-           index += 1
-       }
-       
-       return index >= self.count ? 0 : index
-   }
    
    func objAtIndex(_ index: Int) -> Element? {
        if self.isEmpty {
@@ -36,6 +23,10 @@ public extension Array {
 
 // MARK:-、遵守 Equatable 协议的数组
 public extension Array where Element : Equatable {
+    
+    func indexObj(_  obj: Element) -> Int {
+        return self.firstIndex(of: obj) ?? 0
+    }
    
     mutating func removeObj(_ obj: Element){
        let index = self.indexObj(obj)

@@ -42,4 +42,15 @@ public extension UIColor {
                        blue:CGFloat(b) / 255.0,
                        alpha: alpha)
     }
+    
+    class func rgbColor(_ red:Int,_ green:Int,_ blue:Int) -> UIColor {
+        return UIColor.rgbaColor(red, green, blue, 1.0)
+    }
+    
+    class func rgbaColor(_ red:Int,_ green:Int,_ blue:Int ,_ alpha:CGFloat) -> UIColor {
+        return UIColor(red:CGFloat(red) / 255.0,
+                       green:CGFloat(green) / 255.0,
+                       blue:CGFloat(blue) / 255.0,
+                       alpha: alpha)
+    }
 }

@@ -16,6 +16,32 @@ public extension String {
         }
         return self
     }
+    //去除double末位多余的0
+    func symbolString() ->String{
+        let originValue = StringToDouble(str: self)
+        let str = String(format: "%f",locale: Locale(identifier: "en_US"), self)
+        var value = ""
+        if originValue == 0 {
+            return "0.0"
+        }
+        let arr = str.components(separatedBy: ".")
+        var pointStr = arr.last!
+        let count = pointStr.count
+        var result = 0
+        guard count > 0 else {
+            return str
+        }
+        repeat{
+            result = result + 1
+            pointStr = String(pointStr.dropLast())
+        } while (pointStr.last == "0")
+        
+        if pointStr == "" {
+            pointStr = "0"
+        }
+        value = arr.first! + "." + pointStr
+        return value
+    }
     
     func stringToNum() -> NSNumber {
         if self == "(null)" || self == "null" || self == "<null>" || self.isEmpty {
@@ -132,13 +158,7 @@ public extension String {
     
     //MARK:     ---      时间字符串
     ///时间戳转时间 --  "yyyy-MM-dd HH:mm"
-    func timestampToTime() -> String {
-//        let timestamp = self.timeToTimestamp()
-        let timeStr = self.timestampToTime("yyyy-MM-dd HH:mm:ss")
-        return timeStr
-    }
-    
-    func timestampToTime(_ formatter: String) -> String {
+    func timestampToTime(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let timestamp = TimeInterval(self.stringToNum().floatValue)
         let date = Date.init(timeIntervalSince1970: timestamp)
         let dateFormatter = DateFormatter()
@@ -148,11 +168,7 @@ public extension String {
     }
 
     ///时间转时间戳 --  "yyyy-MM-dd HH:mm"
-    func timeToTimestamp() -> String {
-        return timeToTimestamp("yyyy-MM-dd HH:mm:ss")
-    }
-    
-    func timeToTimestamp(_ formatter: String) -> String {
+    func timeToTimestamp(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formatter
         var date = dateFormatter.date(from: self)
@@ -165,11 +181,7 @@ public extension String {
 
     ///消息时间戳转时间
     ///毫秒为单位
-    func millisecondTimeStampToString() -> String {
-        return self.millisecondTimeStampToString("yyyy-MM-dd HH:mm:ss")
-    }
-    
-    func millisecondTimeStampToString(_ formatter: String) -> String {
+    func millisecondTimeStampToString(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let num = Int(self.stringToNum().floatValue)
         if num == 0 {
             let timeStr = self.timeToTimestamp("yyyy-MM-dd HH:mm:ss")

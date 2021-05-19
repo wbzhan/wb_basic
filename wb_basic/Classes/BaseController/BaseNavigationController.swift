@@ -27,7 +27,7 @@ import RxSwift
 
         self.navigationItem.titleView = self.titleLabel
         
-        let dict:NSDictionary = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font : MediumSize(18)]
+        let dict:NSDictionary = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font : UIFont.mediumFont(18)]
         //标题设置颜色与字体大小
         self.navigationController?.navigationBar.titleTextAttributes = dict as? [NSAttributedString.Key : AnyObject]
         self.extendedLayoutIncludesOpaqueBars = true
@@ -78,7 +78,7 @@ import RxSwift
         titleLabel.text = self.title
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
-        titleLabel.font = MediumSize(18)
+        titleLabel.font = .mediumFont(18)
         titleLabel.size = CGSize.init(width: kScreenWidth - kNavHeight * 4, height: kNavHeight)
         
         return titleLabel

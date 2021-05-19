@@ -48,14 +48,13 @@ public class AlertHUD: UIView {
             make.center.equalToSuperview()
             make.width.equalTo(kScreenWidth - 104)
         }
-        
         return view
     }()
     
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = MediumSize(16)
+        label.font = .mediumFont(16)
         label.textColor = .black
         label.numberOfLines = 0
         self.hudView.addSubview(label)
@@ -69,7 +68,7 @@ public class AlertHUD: UIView {
     
     lazy var desLabel: UILabel = {
        let label = UILabel()
-        label.font = FontSize(12)
+        label.font = .font(12)
         label.textColor = .black
         label.numberOfLines = 0
         self.hudView.addSubview(label)
@@ -86,7 +85,7 @@ public class AlertHUD: UIView {
         let btn = UIButton.init()
         btn.setTitle(LocaledString("cancel"), for: .normal)
         btn.setTitleColor(.black, for: .normal)
-        btn.titleLabel?.font = MediumSize(15)
+        btn.titleLabel?.font = .mediumFont(15)
         self.hudView.addSubview(btn)
         btn.snp.makeConstraints { (make) in
             make.width.height.bottom.equalTo(self.sureBtn)
@@ -103,7 +102,7 @@ public class AlertHUD: UIView {
         let btn = UIButton.init()
         btn.setTitle(LocaledString("sure"), for: .normal)
         btn.setTitleColor(.blue, for: .normal)
-        btn.titleLabel?.font = MediumSize(15)
+        btn.titleLabel?.font = .mediumFont(15)
         self.hudView.addSubview(btn)
         btn.snp.makeConstraints { (make) in
             make.width.greaterThanOrEqualTo(50)
@@ -123,7 +122,7 @@ public class AlertHUD: UIView {
         let btn = UIButton.init()
         btn.setTitle(LocaledString("sure"), for: .normal)
         btn.setTitleColor(.blue, for: .normal)
-        btn.titleLabel?.font = MediumSize(15)
+        btn.titleLabel?.font = .mediumFont(15)
         btn.isHidden = true
         btn.rx.tap.subscribe(onNext: {
             AlertHUD.hideToast()
