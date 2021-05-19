@@ -9,16 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 import AVFoundation
-@objcMembers public class ActionShow : NSObject, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
-   
-    var vc: UIViewController!
-    
+///弹窗
+@objcMembers open class ActionShow : NSObject, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+       
     var getImage = PublishRelay<UIImage>()
     
-    static let shared = ActionShow()
+   public static let shared = ActionShow()
+    
     ///图像选择
-    public  func showPhotoAction (_ vc: UIViewController) {
-        self.vc = vc
+    public  func showPhotoAction () {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let action1 = UIAlertAction.init(title: LocaledString("camera"), style: .default) { (_) in
@@ -33,8 +32,8 @@ import AVFoundation
         alert.addAction(action1)
         alert.addAction(action)
         alert.addAction(cancel)
-        vc.modalPresentationStyle = .fullScreen
-        vc.present(alert, animated: true, completion: nil)
+        kCurrentVC()?.modalPresentationStyle = .fullScreen
+        kCurrentVC()?.present(alert, animated: true, completion: nil)
     }
     
     public func goCamera(){
@@ -47,15 +46,15 @@ import AVFoundation
             
             let status = AVCaptureDevice.authorizationStatus(for: .video)
             if status == .denied {
-                ActionShow.shared.showAlert(kCurrentVC()!, title: "", message: "请在iPhone“设置-隐私-相机”选项中,允许多点访问你的相机")
+                ActionShow.showAlert(title: "", message: "请在iPhone“设置-隐私-相机”选项中,允许多点访问你的相机")
             }else if(status == .restricted || status == .notDetermined){
                 AVCaptureDevice.requestAccess(for: .video) { (authed) in
                     if authed{
-                        self.vc.present(cameraPicker, animated: true, completion: nil)
+                        kCurrentVC()?.present(cameraPicker, animated: true, completion: nil)
                     }
                 }
             }else{
-                self.vc.present(cameraPicker, animated: true, completion: nil)
+                kCurrentVC()?.present(cameraPicker, animated: true, completion: nil)
             }
         } else {
             UIView.showInfoText("un support")
@@ -69,7 +68,7 @@ import AVFoundation
         photoPicker.delegate = self
         photoPicker.allowsEditing = true
         photoPicker.sourceType = .photoLibrary
-        self.vc.present(photoPicker, animated: true, completion: nil)
+        kCurrentVC()?.present(photoPicker, animated: true, completion: nil)
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .automatic
         } else {
@@ -83,13 +82,12 @@ import AVFoundation
         
         let image : UIImage = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
         self.getImage.accept(image)
-        self.vc.dismiss(animated: true, completion: nil)
+        kCurrentVC()?.dismiss(animated: true, completion: nil)
         
     }
     
     ///内容选择
-     func showAction (_ vc: UIViewController, _ title:String?,titles:Array<String> , _ didSelected:@escaping CallBackClosure){
-        self.vc = vc
+    open func showAction (_ title:String?,titles:Array<String> , _ didSelected:@escaping CallBackClosure){
         let alert = UIAlertController.init(title: title, message: nil, preferredStyle: .actionSheet)
         
         for index in 0..<titles.count {
@@ -101,13 +99,12 @@ import AVFoundation
         }
         let cancel = UIAlertAction.init(title: LocaledString("cancel"), style: .cancel, handler: nil)
         alert.addAction(cancel)
-        vc.modalPresentationStyle = .fullScreen
-        vc.present(alert, animated: true, completion: nil)
+        kCurrentVC()?.modalPresentationStyle = .fullScreen
+        kCurrentVC()?.present(alert, animated: true, completion: nil)
     }
     
     ///默认弹框内容选择
-      @objc  func showAlert (_ vc: UIViewController, title:String?,message:String?, complete:@escaping Completed){
-           self.vc = vc
+      @objc open class func showAlert (title:String?,message:String?, complete:@escaping Completed){
            let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
             let action = UIAlertAction.init(title: LocaledString("sure"), style: .default) {(_) in
                 complete()
@@ -115,20 +112,16 @@ import AVFoundation
             alert.addAction(action)
            let cancel = UIAlertAction.init(title: LocaledString("cancel"), style: .cancel, handler: nil)
            alert.addAction(cancel)
-           vc.modalPresentationStyle = .fullScreen
-           vc.present(alert, animated: true, completion: nil)
+        kCurrentVC()?.modalPresentationStyle = .fullScreen
+        kCurrentVC()?.present(alert, animated: true, completion: nil)
        }
     
     ///单独弹框内容选择
-        @objc func showAlert (_ vc: UIViewController, title:String?,message:String?){
-              self.vc = vc
+        @objc open class func showAlert (title:String?,message:String?){
               let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
                let action = UIAlertAction.init(title: LocaledString("sure"), style: .cancel)
                alert.addAction(action)
-              vc.modalPresentationStyle = .fullScreen
-              vc.present(alert, animated: true, completion: nil)
+            kCurrentVC()?.modalPresentationStyle = .fullScreen
+            kCurrentVC()?.present(alert, animated: true, completion: nil)
           }
-    
-        
-    
 }
